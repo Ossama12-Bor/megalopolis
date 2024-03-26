@@ -94,6 +94,24 @@ function DisplayBlock(b : Block){
     console.log(`${getBlockColor(b)}:${getBlockCoord(b)}:${getRoad(b)}`);
 }
 
+export{
+    getBlockCoord,
+    getBlockColor,
+    getTileCoord,
+    getBlockList,
+    getRoad,
+    CreateBlock,
+    to2Dcoord,
+    CreateTile,
+    flipTile,
+    DisplayBlock,
+    DisplayTile,
+    Coord2D,
+    Road,
+    Block,
+    Tile
+
+}
 /*Displays a Tile for debug and test*/
 //function DisplayTile(t : Tile)
 

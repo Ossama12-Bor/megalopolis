@@ -1,0 +1,17 @@
+++++++++++++++++++++
+	Tile
+++++++++++++++++++++
+
+Types : Tile,street,road_t
+
+CreateTile : creating a tile (args = street[])
+
+getStreetCoord : getting street coords (args = street)
+
+getTileCoord : getting tile coords (args = Tile) 
+
+flipTile : flipping a tile (arg = Tile)
+
+AddTile : Adding a tile to the board (arg = Tile ,coords) 
+
+

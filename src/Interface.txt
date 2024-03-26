@@ -12,6 +12,19 @@ getTileCoord : getting tile coords (args = Tile)
 
 flipTile : flipping a tile (arg = Tile)
 
-AddTile : Adding a tile to the board (arg = Tile ,coords) 
+AddTile : Adding a tile to the board (arg = Tile ,coords)
 
 
+++++++++++++++++++++++++++++++++++
+      Deck.Ts
+++++++++++++++++++++++++++++++++++
+
+ce fichier est consacré pour implémenter la structure de données "Deck" qui représente le paquet de cartes.
+type deck{
+	deck : T.tile[]; // un tableau de tuiles
+	size : number; // la taille du tableau;le nombre des cartes
+};
+
+la fonction create_deck crée un paquet de cartes de n tuiles.
+
+pick_tile:prend en paraméte un Deck et le retourne aprés avoir enlever la première tuile.

@@ -34,6 +34,11 @@ type Tile = {
     coord : Coord2D
 };
 
+/*Function to return the string of a color*/
+function colorToString(color : BlockColor) : string{
+    let Cstrings = ["GREEN","GRAY","BLUE","ORANGE"];
+    return Cstrings[color];
+}
 
 /*Returning coords of a block*/
 function getBlockCoord(b : Block) : Coord2D{
@@ -54,19 +59,23 @@ function getBlockList(t : Tile) : Block[]{
     return t.blockList;
 }
 
+function extractBlock(t : Tile,index : number) : Block{
+    return getBlockList(t)[index];
+}
+
 function getRoad(b : Block) : Road{
     return b.road;
 }
 
 function CreateBlock(c: BlockColor, coord: Coord2D, r: Road): Block {
-    // Initialize b as a new Block object
-    let b: Block = {
+    let b : Block = {
         color: c,
         coord: coord,
         road: r
     };
     return b;
 }
+/*makes a Coord2D struct out of (x,y)*/
 function to2Dcoord(x : number,y : number) : Coord2D {
     let coord : Coord2D = {
 	x : x,
@@ -85,16 +94,29 @@ function CreateTile(blockList : Block[]) : Tile{
 
 /*Flips a tile (maybe returns new one)*/
 function flipTile(t : Tile) : Tile{
-    let swapBlocks = ([a,b,c,d] : Block[]) => [c,d,a,b];
-    return swapBlocks(getBlockList(t));
+    let swapBlocks = ([b1,b2,b3,b4] : Block[]) => [b3,b4,b1,b2];
+    let newt : Tile = {
+	blockList: swapBlocks(getBlockList(t)),
+	coord:t.coord
+    }
+    return newt;
 }
 
 /*Displays a block for debug and test*/
-function DisplayBlock(b : Block){
-    console.log(`${getBlockColor(b)}:${getBlockCoord(b)}:${getRoad(b)}`);
+function DisplayBlock(b : Block, prefix : string){
+    console.log(`${prefix}${colorToString(getBlockColor(b))}:(${getBlockCoord(b).x},${getBlockCoord(b).y}):${getRoad(b)}`);
 }
+/*Displays a Tile for same purpose*/
+function DisplayTile(t : Tile,prefix : string){
+    console.log(`${prefix}`);
+    console.log("==========");
+    for(let i = 0;i < 4;i++)
+	DisplayBlock(extractBlock(t,i),`Block(${i}) = `);
+    console.log("==========");
+}
+//function generateTile()
 
-export{
+export {
     getBlockCoord,
     getBlockColor,
     getTileCoord,
@@ -106,12 +128,14 @@ export{
     flipTile,
     DisplayBlock,
     DisplayTile,
+    BlockColor,
+    Block,
+    Direction,
     Coord2D,
     Road,
-    Block,
-    Tile
-
-}
+    Tile,
+    colorToString,
+} ;
 /*Displays a Tile for debug and test*/
 //function DisplayTile(t : Tile)
 

@@ -2,14 +2,16 @@
 enum BlockColor {GREEN=0,
 		   GRAY=1,
 		   BLUE=2,
-		   ORANGE=3
+		   ORANGE=3,
+		   NUM_COLORS=4
 		  };
 
 //representing the 4 directions
 enum Direction {N=0,
 		E=1,
 		S=2,
-		W=3
+		W=3,
+		Direction_count=4
 	       };
 
 //representation of 2D coordinates
@@ -19,19 +21,30 @@ type Coord2D = {
 };
 
 //representation of a road
-type Road = Direction[] | undefined;
+enum Road {
+	NORTH_SOUTH=0,
+	WEST_EST=3,
+	NORTH_EST=1,
+	NORTH_WEST=2,
+	SOUTH_EST=-2,
+	SOUTH_WEST=-1,
+	NO_ROAD=4,
+	ROAD_COUNT=6
+};
 
 //Rep. of a Block : quartier
 type Block = {
     color : BlockColor,
     coord : Coord2D,
     road : Road /*can be undefined of not a road*/
+	ID: number 
 };
 
 //Rep. of a Tile : tuile
 type Tile = {
     blockList : Block[],
-    coord : Coord2D
+    coord : Coord2D,
+	ID:number
 };
 
 /*Function to return the string of a color*/
@@ -67,16 +80,17 @@ function getRoad(b : Block) : Road{
     return b.road;
 }
 
-function CreateBlock(c: BlockColor, coord: Coord2D, r: Road): Block {
+function CreateBlock(c: BlockColor, coord: Coord2D, r: Road,id:number): Block {
     let b : Block = {
         color: c,
         coord: coord,
-        road: r
+        road: r,
+		ID :id
     };
     return b;
 }
 /*makes a Coord2D struct out of (x,y)*/
-function to2Dcoord(x : number,y : number) : Coord2D {
+function to2Dcoord(x : number|undefined,y : number|undefined) : Coord2D {
     let coord : Coord2D = {
 	x : x,
 	y : y
@@ -87,13 +101,14 @@ function to2Dcoord(x : number,y : number) : Coord2D {
 function CreateTile(blockList : Block[]) : Tile{
     let t : Tile ={
 	blockList : blockList,
-	coord : getBlockCoord(blockList[0])
-    }
+	coord : getBlockCoord(blockList[0]),
+	ID: blockList[0].ID
+    };
     return t;
 }
 
 /*Flips a tile (maybe returns new one)*/
-function flipTile(t : Tile) : Tile{
+/*function flipTile(t : Tile) : Tile{
     let swapBlocks = ([b1,b2,b3,b4] : Block[]) => [b3,b4,b1,b2];
     let newt : Tile = {
 	blockList: swapBlocks(getBlockList(t)),
@@ -101,7 +116,7 @@ function flipTile(t : Tile) : Tile{
     }
     return newt;
 }
-
+*/
 /*Displays a block for debug and test*/
 function DisplayBlock(b : Block, prefix : string){
     console.log(`${prefix}${colorToString(getBlockColor(b))}:(${getBlockCoord(b).x},${getBlockCoord(b).y}):${getRoad(b)}`);
@@ -114,7 +129,15 @@ function DisplayTile(t : Tile,prefix : string){
 	DisplayBlock(extractBlock(t,i),`Block(${i}) = `);
     console.log("==========");
 }
-//function generateTile()
+function generateTile(id:number):Tile
+{
+	const building:Block=CreateBlock(BlockColor.ORANGE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
+	const indusrty:Block=CreateBlock(BlockColor.GRAY,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
+	const parc:Block=CreateBlock(BlockColor.GREEN,to2Dcoord(undefined,undefined),Road.NO_ROAD,id);
+	const commercial_center:Block=CreateBlock(BlockColor.BLUE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
+	const tile:Block[]=[building,indusrty,parc,commercial_center];
+	return CreateTile(tile);
+}
 
 export {
     getBlockCoord,
@@ -125,7 +148,7 @@ export {
     CreateBlock,
     to2Dcoord,
     CreateTile,
-    flipTile,
+    //flipTile,
     DisplayBlock,
     DisplayTile,
     BlockColor,
@@ -135,6 +158,7 @@ export {
     Road,
     Tile,
     colorToString,
+	generateTile
 } ;
 /*Displays a Tile for debug and test*/
 //function DisplayTile(t : Tile)

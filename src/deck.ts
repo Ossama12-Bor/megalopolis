@@ -1,39 +1,52 @@
-import * as T from "./Tile.ts"
-type deck{
-	deck : T.tile[];
+import * as T from "./tile.js"
+
+type deck = {
+	deck : T.Tile[];
 	size : number;
 };
+/*create an empty deck*/
 function deck_empty():deck
 {
-	let Deck:deck;
-	Deck.deck={};
-	Deck.size=0;
+	let Deck:deck={deck:[],size:0};
 	return Deck;
 }
-function create_deck(tile :Tile[],size :number):deck
+/*create deck using Tiles array and size given as parameters*/
+function create_deck(tile :T.Tile[],size :number):deck
 {
-	let Deck={tile,size};
+	let Deck:deck={deck:tile,size:size};
 	return Deck;
 }
-function add_deck(Deck:deck,tile:T.tile):deck
+/*add a tile to deck */
+function add_deck(Deck:deck,tile:T.Tile):deck
 {
-	let new_tiles=  Deck.deck.concat(tile);
+	let new_tiles :T.Tile[] = Deck.deck.concat(tile);
 	return create_deck(new_tiles,Deck.size+1);
 }
-
-function generate_deck(Deck :deck ,n : number) : deck
+/*this function takes deck(always an empty deck (added to avoid edge effects)) and a number that represents the size*/
+function generate_deck(Deck :deck ,n : number):deck
 {
 	if(n===0){
 		return Deck;
 	}
 	else{
-		generate_deck(add_deck(Deck,generate_tile()),n-1);
+		return generate_deck(add_deck(Deck,T.generateTile(n-1)),n-1);
 	}
 }
-function pick_tile(Deck : deck): deck 
+/*pick a tile from deck*/
+function pick_tile(Deck : deck): T.Tile 
 {
 	Deck.size-=1;
 	return Deck.deck[Deck.size];
 }
+/*print deck(used to debug )*/
+function print_deck(Deck:deck,prefix:string){
+	console.log(`${prefix}`);
+    console.log("==========\n",Deck.size);
+	for(let i=0;i<Deck.size;i++){
+		T.DisplayTile(Deck.deck[i],prefix);
+	}
+    console.log("==========");
+}
 
 
+export {pick_tile,generate_deck,deck_empty,deck,create_deck,add_deck,print_deck};

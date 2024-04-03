@@ -11,22 +11,49 @@ type neighbors={
 type Board={
 	board:neighbors[],
 	size:number,
-	deck:D.deck //it represents the reverse of game deck
+	deck:D.deck, //it represents the reverse of game deck
+	are_in_game:boolean[],
+	coordinate:T.Coord2D[]
 }
-function initialize_neighbor(board:Board,id:number){
+function initialize_are_in_game(board:Board):Board{
+	for(let i=0;i<board.deck.size*4;i++){
+		board.are_in_game[i]=false;
+	}
+	return board;
+}
+function initialize_coord(board:Board):Board{
+	for(let i=0;i<board.deck.size*4;i++){
+		board.coordinate[i]={x:undefined,y:undefined};
+	}
+	return board;
+}
+
+function initialize_neighbor(board:Board,id:number):Board{
 	if(id%NUM_NEIGHBORS===0)
 		board.board[id]={North:undefined,Est:id+1,South:id+2,West:undefined};
 	else if(id%NUM_NEIGHBORS===1)
 		board.board[id]={North:undefined,Est:undefined,South:id+2,West:id-1};
 	else if(id%NUM_NEIGHBORS===2)
 		board.board[id]={North:id-2,Est:id+1,South:undefined,West:undefined};
-	else if(id%NUM_NEIGHBORS===3)
+	else (id%NUM_NEIGHBORS===3)
 		board.board[id]={North:id-2,Est:undefined,South:undefined,West:id-1};
-}
-function empty_Board(deck:D.deck){
-	let board:Board={board:[],size:0,deck:deck};
 	return board;
 }
-function initialize_board(deck :D.deck):Board{
-	
+function empty_Board(deck:D.deck):Board{
+	let board:Board={board:[],size:0,deck:deck,are_in_game:[],coordinate:[]};
+	return board;
 }
+function initialize_board(board:Board,deck :D.deck,size:number):Board{
+	
+	if(size===0)
+		return board;
+	else{
+		let new_board:Board =initialize_board(initialize_neighbor(board,size-1),deck,size-1);
+		
+	}
+}
+function first_tile(board:Board):Board{
+	board.size+=1;
+
+}
+

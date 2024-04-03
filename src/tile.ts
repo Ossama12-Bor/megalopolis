@@ -36,15 +36,14 @@ enum Road {
 type Block = {
     color : BlockColor,
     coord : Coord2D,
-    road : Road /*can be undefined of not a road*/
-	ID: number 
+    road : Road,
+	is_in_game:boolean /*can be undefined of not a road*/
 };
 
 //Rep. of a Tile : tuile
 type Tile = {
     blockList : Block[],
-    coord : Coord2D,
-	ID:number
+    coord : Coord2D
 };
 
 /*Function to return the string of a color*/
@@ -80,12 +79,12 @@ function getRoad(b : Block) : Road{
     return b.road;
 }
 
-function CreateBlock(c: BlockColor, coord: Coord2D, r: Road,id:number): Block {
+function CreateBlock(c: BlockColor, coord: Coord2D, r: Road): Block {
     let b : Block = {
         color: c,
         coord: coord,
         road: r,
-		ID :id
+		is_in_game:false
     };
     return b;
 }
@@ -101,8 +100,7 @@ function to2Dcoord(x : number|undefined,y : number|undefined) : Coord2D {
 function CreateTile(blockList : Block[]) : Tile{
     let t : Tile ={
 	blockList : blockList,
-	coord : getBlockCoord(blockList[0]),
-	ID: blockList[0].ID
+	coord : getBlockCoord(blockList[0])
     };
     return t;
 }
@@ -129,12 +127,12 @@ function DisplayTile(t : Tile,prefix : string){
 	DisplayBlock(extractBlock(t,i),`Block(${i}) = `);
     console.log("==========");
 }
-function generateTile(id:number):Tile
+function generateTile():Tile
 {
-	const building:Block=CreateBlock(BlockColor.ORANGE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
-	const indusrty:Block=CreateBlock(BlockColor.GRAY,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
-	const parc:Block=CreateBlock(BlockColor.GREEN,to2Dcoord(undefined,undefined),Road.NO_ROAD,id);
-	const commercial_center:Block=CreateBlock(BlockColor.BLUE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
+	const building:Block=CreateBlock(BlockColor.ORANGE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2);
+	const indusrty:Block=CreateBlock(BlockColor.GRAY,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2);
+	const parc:Block=CreateBlock(BlockColor.GREEN,to2Dcoord(undefined,undefined),Road.NO_ROAD);
+	const commercial_center:Block=CreateBlock(BlockColor.BLUE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2);
 	const tile:Block[]=[building,indusrty,parc,commercial_center];
 	return CreateTile(tile);
 }
@@ -144,6 +142,7 @@ function give_coordinate(tile:Tile,coord:Coord2D){
 	tile.blockList[1].coord={x:coord.x+1,y:coord.y};
 	tile.blockList[2].coord={x:coord.x,y:coord.y+1};
 	tile.blockList[3].coord={x:coord.x+1,y:coord.y+1};
+	
 	}
 
 }

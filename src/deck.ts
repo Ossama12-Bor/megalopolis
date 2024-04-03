@@ -29,15 +29,11 @@ function generate_deck(Deck :deck ,n : number):deck
 		return Deck;
 	}
 	else{
-		return generate_deck(add_deck(Deck,T.generateTile(n-1)),n-1);
+		return generate_deck(add_deck(Deck,T.generateTile()),n-1);
 	}
 }
 /*pick a tile from deck*/
-function pick_tile(Deck : deck): T.Tile 
-{
-	Deck.size-=1;
-	return Deck.deck[Deck.size];
-}
+
 /*print deck(used to debug )*/
 function print_deck(Deck:deck,prefix:string){
 	console.log(`${prefix}`);
@@ -49,4 +45,4 @@ function print_deck(Deck:deck,prefix:string){
 }
 
 
-export {pick_tile,generate_deck,deck_empty,deck,create_deck,add_deck,print_deck};
+export {generate_deck,deck_empty,deck,create_deck,add_deck,print_deck};

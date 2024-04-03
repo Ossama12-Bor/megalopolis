@@ -125,7 +125,7 @@ function DisplayBlock(b : Block, prefix : string){
 function DisplayTile(t : Tile,prefix : string){
     console.log(`${prefix}`);
     console.log("==========");
-    for(let i = 0;i < 4;i++)
+    for(let i = 0;i < BlockColor.NUM_COLORS;i++)
 	DisplayBlock(extractBlock(t,i),`Block(${i}) = `);
     console.log("==========");
 }
@@ -138,7 +138,15 @@ function generateTile(id:number):Tile
 	const tile:Block[]=[building,indusrty,parc,commercial_center];
 	return CreateTile(tile);
 }
+function give_coordinate(tile:Tile,coord:Coord2D){
+	if(coord.x!=undefined &&coord.y!=undefined ){
+	tile.blockList[0].coord=coord;
+	tile.blockList[1].coord={x:coord.x+1,y:coord.y};
+	tile.blockList[2].coord={x:coord.x,y:coord.y+1};
+	tile.blockList[3].coord={x:coord.x+1,y:coord.y+1};
+	}
 
+}
 export {
     getBlockCoord,
     getBlockColor,
@@ -158,7 +166,8 @@ export {
     Road,
     Tile,
     colorToString,
-	generateTile
+	generateTile,
+	give_coordinate
 } ;
 /*Displays a Tile for debug and test*/
 //function DisplayTile(t : Tile)

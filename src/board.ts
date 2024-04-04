@@ -16,13 +16,13 @@ type Board={
 	coordinate:T.Coord2D[]
 }
 function initialize_are_in_game(board:Board):Board{
-	for(let i=0;i<board.deck.size*4;i++){
+	for(let i=0;i<board.deck.size*NUM_NEIGHBORS;i++){
 		board.are_in_game[i]=false;
 	}
 	return board;
 }
 function initialize_coord(board:Board):Board{
-	for(let i=0;i<board.deck.size*4;i++){
+	for(let i=0;i<board.deck.size*NUM_NEIGHBORS;i++){
 		board.coordinate[i]={x:undefined,y:undefined};
 	}
 	return board;
@@ -49,11 +49,28 @@ function initialize_board(board:Board,deck :D.deck,size:number):Board{
 		return board;
 	else{
 		let new_board:Board =initialize_board(initialize_neighbor(board,size-1),deck,size-1);
-		
+		return initialize_are_in_game(initialize_coord(new_board));
 	}
 }
+function give_coordinate(board:Board,coord:T.Coord2D,id:number){
+	let new_board:Board=board;
+	if(coord.x!=undefined &&coord.y!=undefined ){
+	new_board.coordinate[id]=coord;
+	new_board.coordinate[id+1]={x:coord.x+1,y:coord.y};
+	new_board.coordinate[id+2]={x:coord.x,y:coord.y+1};
+	new_board.coordinate[id]={x:coord.x+1,y:coord.y+1};
+	}
+	return new_board;
+}
+function become_in_game(board:Board,id:number):Board{
+	let new_board:Board=board;
+	new_board.are_in_game[id:id+4]=true;
+	return new_board;
+}
 function first_tile(board:Board):Board{
-	board.size+=1;
+	let new_board:Board=board;
+
+
 
 }
 

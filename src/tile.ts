@@ -35,16 +35,12 @@ enum Road {
 //Rep. of a Block : quartier
 type Block = {
     color : BlockColor,
-    coord : Coord2D,
-    road : Road /*can be undefined of not a road*/
-	ID: number 
+    road : Road/*can be undefined of not a road*/
 };
 
 //Rep. of a Tile : tuile
 type Tile = {
-    blockList : Block[],
-    coord : Coord2D,
-	ID:number
+    blockList : Block[]
 };
 
 /*Function to return the string of a color*/
@@ -54,20 +50,20 @@ function colorToString(color : BlockColor) : string{
 }
 
 /*Returning coords of a block*/
-function getBlockCoord(b : Block) : Coord2D{
+/*function getBlockCoord(b : Block) : Coord2D{
     return b.coord;
 }
-
+*/
 /*Returning a block s color*/
 function getBlockColor(b : Block) : BlockColor{
     return b.color;
 }
 
 /*Returning coords of a tile*/
-function getTileCoord(t : Tile) : Coord2D{
+/*function getTileCoord(t : Tile) : Coord2D{
     return t.coord;
 }
-
+*/
 function getBlockList(t : Tile) : Block[]{
     return t.blockList;
 }
@@ -80,12 +76,10 @@ function getRoad(b : Block) : Road{
     return b.road;
 }
 
-function CreateBlock(c: BlockColor, coord: Coord2D, r: Road,id:number): Block {
+function CreateBlock(c: BlockColor, r: Road): Block {
     let b : Block = {
         color: c,
-        coord: coord,
-        road: r,
-		ID :id
+        road: r
     };
     return b;
 }
@@ -100,9 +94,7 @@ function to2Dcoord(x : number|undefined,y : number|undefined) : Coord2D {
 /*Initializes a Tile from a list of blocks*/
 function CreateTile(blockList : Block[]) : Tile{
     let t : Tile ={
-	blockList : blockList,
-	coord : getBlockCoord(blockList[0]),
-	ID: blockList[0].ID
+	blockList : blockList
     };
     return t;
 }
@@ -119,30 +111,28 @@ function CreateTile(blockList : Block[]) : Tile{
 */
 /*Displays a block for debug and test*/
 function DisplayBlock(b : Block, prefix : string){
-    console.log(`${prefix}${colorToString(getBlockColor(b))}:(${getBlockCoord(b).x},${getBlockCoord(b).y}):${getRoad(b)}`);
+    console.log(`${prefix}${colorToString(getBlockColor(b))}:${getRoad(b)}`);
 }
 /*Displays a Tile for same purpose*/
 function DisplayTile(t : Tile,prefix : string){
     console.log(`${prefix}`);
     console.log("==========");
-    for(let i = 0;i < 4;i++)
+    for(let i = 0;i < BlockColor.NUM_COLORS;i++)
 	DisplayBlock(extractBlock(t,i),`Block(${i}) = `);
     console.log("==========");
 }
-function generateTile(id:number):Tile
+function generateTile():Tile
 {
-	const building:Block=CreateBlock(BlockColor.ORANGE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
-	const indusrty:Block=CreateBlock(BlockColor.GRAY,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
-	const parc:Block=CreateBlock(BlockColor.GREEN,to2Dcoord(undefined,undefined),Road.NO_ROAD,id);
-	const commercial_center:Block=CreateBlock(BlockColor.BLUE,to2Dcoord(undefined,undefined),Math.floor(Math.random())%Road.ROAD_COUNT-2,id);
+	const building:Block=CreateBlock(BlockColor.ORANGE,Math.floor(Math.random())%Road.ROAD_COUNT-2);
+	const indusrty:Block=CreateBlock(BlockColor.GRAY,Math.floor(Math.random())%Road.ROAD_COUNT-2);
+	const parc:Block=CreateBlock(BlockColor.GREEN,Road.NO_ROAD);
+	const commercial_center:Block=CreateBlock(BlockColor.BLUE,Math.floor(Math.random())%Road.ROAD_COUNT-2);
 	const tile:Block[]=[building,indusrty,parc,commercial_center];
 	return CreateTile(tile);
 }
 
 export {
-    getBlockCoord,
     getBlockColor,
-    getTileCoord,
     getBlockList,
     getRoad,
     CreateBlock,
@@ -159,7 +149,7 @@ export {
     Tile,
     colorToString,
 	generateTile
-} ;
+};
 /*Displays a Tile for debug and test*/
 //function DisplayTile(t : Tile)
 

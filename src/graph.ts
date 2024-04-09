@@ -2,8 +2,8 @@
 
 /* type for graph node (manipulated after with label)*/
 type graphNode<T> = {
-    label : T,
-    neighbors : graphNode<T>[]
+	label : T,
+	neighbors : graphNode<T>[]
 };
 
 /* type representing a generic graph */
@@ -11,13 +11,13 @@ type graph<T> = graphNode<T>[];
 
 /* empty graph constructor*/
 function cons_empty_graph<T>() : graph<T> {
-    let g : graph<T> = [];
+    const g : graph<T> = [];
     return g;
 }
 
 /* empty node constructor */
 function cons_empty_node<T>(label : T){
-    let n : graphNode<T> = {label : label, neighbors : []};
+    const n : graphNode<T> = {label : label, neighbors : []};
     return n;
 }
 
@@ -58,11 +58,9 @@ function add_edge<T>(g : graph<T>, l1 : T, l2 : T) : graph<T> {
 function display_graph<T>(g : graph<T>){
     g.forEach((node) =>
 	{
-	    console.log(node.label ," : ");
-	    node.neighbors.forEach((neighbor)=> {
-		console.log(neighbor.label)
-	    });
-			});
+	console.log(node.label ," : ");
+	node.neighbors.forEach((neighbor)=>{console.log(neighbor.label);});
+	});
 }
 
 /* DFS search ,returns component of starting node */
@@ -129,4 +127,4 @@ export
     find_node_with_label,
     dfs,
     getConnectedComponents
-}
+};

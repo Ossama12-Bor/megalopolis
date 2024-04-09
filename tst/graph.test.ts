@@ -1,4 +1,4 @@
-import * as Graph from "../dist/graph.js"
+import * as Graph from "../dist/graph.js";
 
 
 describe('General graph test suite',() =>{

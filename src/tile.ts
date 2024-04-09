@@ -1,18 +1,8 @@
 //representing different Block colors
-enum BlockColor {GREEN=0,
-		   GRAY=1,
-		   BLUE=2,
-		   ORANGE=3,
-		   NUM_COLORS=4
-		  };
+enum BlockColor {GREEN=0,GRAY=1,BLUE=2,ORANGE=3,NUM_COLORS=4}
 
 //representing the 4 directions
-enum Direction {N=0,
-		E=1,
-		S=2,
-		W=3,
-		Direction_count=4
-	       };
+enum Direction {N=0,E=1,S=2,W=3,Direction_count=4}
 
 //representation of 2D coordinates
 type Coord2D = {
@@ -30,7 +20,7 @@ enum Road {
 	SOUTH_WEST=-1,
 	NO_ROAD=4,
 	ROAD_COUNT=6
-};
+}
 
 //Rep. of a Block : quartier
 type Block = {
@@ -45,7 +35,7 @@ type Tile = {
 
 /*Function to return the string of a color*/
 function colorToString(color : BlockColor) : string{
-    let Cstrings = ["GREEN","GRAY","BLUE","ORANGE"];
+    const Cstrings = ["GREEN","GRAY","BLUE","ORANGE"];
     return Cstrings[color];
 }
 
@@ -77,7 +67,7 @@ function getRoad(b : Block) : Road{
 }
 
 function CreateBlock(c: BlockColor, r: Road): Block {
-    let b : Block = {
+    const b : Block = {
         color: c,
         road: r
     };
@@ -85,15 +75,15 @@ function CreateBlock(c: BlockColor, r: Road): Block {
 }
 /*makes a Coord2D struct out of (x,y)*/
 function to2Dcoord(x : number|undefined,y : number|undefined) : Coord2D {
-    let coord : Coord2D = {
+    const coord : Coord2D = {
 	x : x,
 	y : y
-    }
+    };
     return coord;
 }
 /*Initializes a Tile from a list of blocks*/
 function CreateTile(blockList : Block[]) : Tile{
-    let t : Tile ={
+    const t : Tile ={
 	blockList : blockList
     };
     return t;

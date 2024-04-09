@@ -1,4 +1,4 @@
-import * as T from "./tile.js"
+import * as T from "./tile.js";
 
 type deck = {
 	deck : T.Tile[];
@@ -7,19 +7,19 @@ type deck = {
 /*create an empty deck*/
 function deck_empty():deck
 {
-	let Deck:deck={deck:[],size:0};
+	const Deck:deck={deck:[],size:0};
 	return Deck;
 }
 /*create deck using Tiles array and size given as parameters*/
 function create_deck(tile :T.Tile[],size :number):deck
 {
-	let Deck:deck={deck:tile,size:size};
+	const Deck:deck={deck:tile,size:size};
 	return Deck;
 }
 /*add a tile to deck */
 function add_deck(Deck:deck,tile:T.Tile):deck
 {
-	let new_tiles :T.Tile[] = Deck.deck.concat(tile);
+	const new_tiles :T.Tile[] = Deck.deck.concat(tile);
 	return create_deck(new_tiles,Deck.size+1);
 }
 /*this function takes deck(always an empty deck (added to avoid edge effects)) and a number that represents the size*/

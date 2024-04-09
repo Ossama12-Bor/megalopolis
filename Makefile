@@ -4,7 +4,11 @@ build:
 	npx tsc -p tsconfig.json
 
 eslint:
-	npx eslint src tst
+	npx eslint  src tst
+
+eslintfx:	
+	npx eslint --fix src tst 
+
 
 parcel:
 	npx parcel

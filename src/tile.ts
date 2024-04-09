@@ -6,8 +6,8 @@ enum Direction {N=0,E=1,S=2,W=3,Direction_count=4}
 
 //representation of 2D coordinates
 type Coord2D = {
-    x : number | undefined,
-    y : number | undefined
+    x : number, //| undefined,
+    y : number //| undefined
 };
 
 //representation of a road

@@ -9,49 +9,15 @@ type neighbors_ids={
 	West : number|undefined
 };
 type Board={
-	board:neighbors_ids[],
+	board:{[key:T.Coord2D]:neighbors_ids},
 	size:number,
-	deck:D.deck, //it represents the reverse of game deck
-	are_in_game:boolean[],
-	block_coordinate:T.Coord2D[]
-}
-function initialize_are_in_game(board:Board):Board{
-	for(let i=0;i<board.deck.size*NUM_NEIGHBORS;i++){
-		board.are_in_game[i]=false;
-	}
-	return board;
-}
-function initialize_coord(board:Board):Board{
-	for(let i=0;i<board.deck.size*NUM_NEIGHBORS;i++){
-		board.block_coordinate[i]={x:undefined,y:undefined};
-	}
-	return board;
+	deck:D.deck //it represents the reverse of game deck
 }
 
-function initialize_neighbor(board:Board,id:number):Board{
-	if(id%NUM_NEIGHBORS===0)
-		board.board[id]={North:undefined,Est:id+1,South:id+2,West:undefined};
-	else if(id%NUM_NEIGHBORS===1)
-		board.board[id]={North:undefined,Est:undefined,South:id+2,West:id-1};
-	else if(id%NUM_NEIGHBORS===2)
-		board.board[id]={North:id-2,Est:id+1,South:undefined,West:undefined};
-	else
-		board.board[id]={North:id-2,Est:undefined,South:undefined,West:id-1};
-	return board;
+function who_is_in_coord(board:Board,coord:T.Coord2D):neighbors_ids{
+	return board.board[coord];
 }
-function empty_Board(deck:D.deck):Board{
-	const board:Board={board:[],size:0,deck:deck,are_in_game:[],block_coordinate:[]};
-	return board;
-}
-function initialize_board(board:Board,deck :D.deck,size:number):Board{
-	
-	if(size===0)
-		return board;
-	else{
-		const new_board:Board =initialize_board(initialize_neighbor(board,size-1),deck,size-1);
-		return initialize_are_in_game(initialize_coord(new_board));
-	}
-}
+
 function give_coordinate(board:Board,coord:T.Coord2D,id:number){
 	const new_board:Board=board;
 	if(coord.x!==undefined &&coord.y!==undefined ){
@@ -63,13 +29,9 @@ function give_coordinate(board:Board,coord:T.Coord2D,id:number){
 	return new_board;
 }
 
-function who_is_in_coord(board:Board,coord:T.Coord2D){
-	for(let i=0;i<board.size;i++){
-		if(board.block_coordinate[i]===coord)
-			return i;
-	}
-	return -1;
-}
+
+
+
 
 function become_in_game(board:Board,block_id:number):Board{
 	const new_board:Board=board;
@@ -88,6 +50,8 @@ function add_tile(board:Board, id : number, coord : T.Coord2D) : Board{
     new_board.size += 4;
     return new_board;
 }
+
+function 
 
 export{
 	initialize_are_in_game,

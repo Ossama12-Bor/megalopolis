@@ -1,11 +1,12 @@
 import * as B from "../src/board.js";
 import * as D from "../src/deck.js";
 
+const board:B.Board={board:{},size:0,deck:D.generate_deck(D.deck_empty(),5)};
 
-const our_deck:D.deck =D.generate_deck(D.deck_empty(),10);
-
-const our_board:B.Board=B.initialize_board(B.empty_Board(our_deck),our_deck,our_deck.size*B.NUM_NEIGHBORS);
-
-
-console.log(our_deck);
-console.log(our_board);
+console.log(D.print_deck(board.deck,"**"));
+const coord1:Coord2D={x:0,y:0};
+const coord2:Coord2D={x:1,y:0};
+B.add_tile(board,1,coord1);
+console.log(board);
+B.add_tile(board,2,coord2);
+console.log(board);

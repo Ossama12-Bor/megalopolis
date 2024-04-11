@@ -6,8 +6,8 @@ enum Direction {N=0,E=1,S=2,W=3,Direction_count=4}
 
 //representation of 2D coordinates
 type Coord2D = {
-    x : number, //| undefined,
-    y : number //| undefined
+    x : number,
+    y : number
 };
 
 //representation of a road
@@ -74,7 +74,7 @@ function CreateBlock(c: BlockColor, r: Road): Block {
     return b;
 }
 /*makes a Coord2D struct out of (x,y)*/
-function to2Dcoord(x : number|undefined,y : number|undefined) : Coord2D {
+function to2Dcoord(x : number,y : number) : Coord2D {
     const coord : Coord2D = {
 	x : x,
 	y : y

@@ -37,11 +37,10 @@ function generate_deck(Deck :deck ,n : number):deck
 /*print deck(used to debug )*/
 function print_deck(Deck:deck,prefix:string){
 	console.log(`${prefix}`);
-    console.log("==========\n",Deck.size);
+    console.log("deck size is:\n",Deck.size);
 	for(let i=0;i<Deck.size;i++){
 		T.DisplayTile(Deck.deck[i],prefix);
 	}
-    console.log("==========");
 }
 
 

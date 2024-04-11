@@ -1,69 +1,68 @@
 import * as T from "./tile.js";
 import * as D from "./deck.js";
+import { isReturnStatement, textChangeRangeIsUnchanged } from "typescript";
 
 const NUM_NEIGHBORS:number=4; 
-type neighbors_ids={
-	North : number|undefined,
-	Est : number|undefined,
-	South : number|undefined,
-	West : number|undefined
-};
 type Board={
-	board:{[key:T.Coord2D]:neighbors_ids},
+	board:{[key:string]:number},
 	size:number,
 	deck:D.deck //it represents the reverse of game deck
 }
 
-function who_is_in_coord(board:Board,coord:T.Coord2D):neighbors_ids{
-	return board.board[coord];
+function coordToString(coord: T.Coord2D): string {
+    return `${coord.x},${coord.y}`;
 }
 
-function give_coordinate(board:Board,coord:T.Coord2D,id:number){
-	const new_board:Board=board;
-	if(coord.x!==undefined &&coord.y!==undefined ){
-	new_board.block_coordinate[id]=coord;
-	new_board.block_coordinate[id+1]={x:coord.x+1,y:coord.y};
-	new_board.block_coordinate[id+2]={x:coord.x,y:coord.y+1};
-	new_board.block_coordinate[id]={x:coord.x+1,y:coord.y+1};
-	}
-	return new_board;
+function StringToCoord(chaine:string):T.Coord2D{
+	const i:number=chaine.indexOf(",");
+	const coord:T.Coord2D ={x:+chaine.substring(0,i),y:+chaine.substring(i+1)};
+	return coord;
 }
 
 
 
-
-
-function become_in_game(board:Board,block_id:number):Board{
-	const new_board:Board=board;
-	for(let i=0;i<NUM_NEIGHBORS;i++){
-		new_board.are_in_game[block_id+i]=true;
-		const index=who_is_in_coord(board,board.block_coordinate[block_id+i]);
-		if(index!==-1 && new_board.are_in_game[index]===true)
-			new_board.are_in_game[index]=false;
-	}
-	return new_board;
+function who_is_in_coord(board:Board,coord:T.Coord2D):number{
+	return board.board[coordToString(coord)];
 }
 
+/*function is_coord_avail(board:Board,coord:T.Coord2D):boolean{
 
-function add_tile(board:Board, id : number, coord : T.Coord2D) : Board{
-    const new_board:Board = give_coordinate(become_in_game(board,id),coord,id);
-    new_board.size += 4;
-    return new_board;
+}*/
+
+function add_tile(board:Board,tile_id:number,coord:T.Coord2D){
+	const new_coord1:T.Coord2D={x:coord.x,y:coord.y};
+	const new_coord2:T.Coord2D={x:coord.x+1,y:coord.y};
+	const new_coord3:T.Coord2D={x:coord.x,y:coord.y+1};
+	const new_coord4:T.Coord2D={x:coord.x+1,y:coord.y+1};
+	board.board[coordToString(new_coord1)]=tile_id*NUM_NEIGHBORS;
+	board.board[coordToString(new_coord2)]=tile_id*NUM_NEIGHBORS+1;
+	board.board[coordToString(new_coord3)]=tile_id*NUM_NEIGHBORS+2;
+	board.board[coordToString(new_coord4)]=tile_id*NUM_NEIGHBORS+3;
+	board.size+=1;
 }
 
-function 
+function print_board(board:Board){
+	console.log(board.board);
+	console.log(board.size);
+	console.log(D.print_deck(board.deck,"***"));
+}
+/*const board:Board={board:{},size:0,deck:D.generate_deck(D.deck_empty(),5)};
 
-export{
-	initialize_are_in_game,
-	initialize_board,
-	initialize_neighbor,
-	initialize_coord,
-	who_is_in_coord,
-	add_tile,
-	become_in_game,
-	give_coordinate,
-	empty_Board,
-	Board,
+console.log(D.print_deck(board.deck,"**"));
+const coord1:T.Coord2D={x:0,y:0};
+const coord2:T.Coord2D={x:1,y:0};
+add_tile(board,1,coord1);
+console.log(board);
+add_tile(board,2,coord2);
+console.log(board);*/
+
+export {
 	NUM_NEIGHBORS,
-	neighbors_ids
+	add_tile,
+	Board,
+	coordToString,
+	StringToCoord,
+	who_is_in_coord,
+	print_board
 };
+

@@ -23,12 +23,13 @@ function StringToCoord(chaine:string):T.Coord2D{
 	return coord;
 }
 
-function initializeBoard(d : D.deck){
+function initializeBoard(){
     let b : Board = {
 	board : {},
 	size : 0,
 	deck : D.deck_empty()
     }
+    return b;
 }
 
 function getBoard(board : Board) : {[key:string]:number} {

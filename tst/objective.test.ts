@@ -8,8 +8,8 @@ describe("Objectives' test suite ",() =>{
     test("test main functions",() =>{
 	// just an example
 	let obj : OBJ.Objective = OBJ.CreateObj(3,(board : B.Board) => {return 10;});
-	let board : B.Board = 
+	let board : B.Board = B.initializeBoard();
 	expect(OBJ.getObjScore(obj)).toBe(3);
-	 expect(OBJ.boardObjScore(board,obj)).tobe(10);
+	 expect(OBJ.boardObjScore(board,obj)).toBe(10);
     });
 });

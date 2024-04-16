@@ -5,6 +5,7 @@ import * as G from "./graph.js";
 
 import { isReturnStatement, textChangeRangeIsUnchanged } from "typescript";
 
+
 const NUM_NEIGHBORS:number=4;
 
 type Board={
@@ -47,9 +48,11 @@ function is_available_coord(board:Board,coord:T.Coord2D):boolean{
 		for(let j=-2;j<3;j++){
 		let x=x_0-i;
 		let y=y_0-j;
+		console.log(x,y,i,j);
 		if(Math.abs(i)+Math.abs(j)<=3){
-			const new_coord=coordToString(coord);
-			if( new_coord in board.board){
+			const new_coord:T.Coord2D={x:x,y:y};
+			const new_string_coord=coordToString(new_coord);
+			if( new_string_coord in board.board){
 				return true;
 			}
 		}
@@ -77,6 +80,7 @@ function print_board(board:Board){
 	console.log(D.print_deck(board.deck,"***"));
 }
 
+<<<<<<< HEAD
 
 /* construction of road graph , returns a graph*/
 function constructRoadGraph(board : Board) : G.graph<number>{
@@ -117,6 +121,8 @@ function constructRoadGraph(board : Board) : G.graph<number>{
 
 // function constructGroupGraph(board : Board) : G.graph<number>{}
 
+=======
+>>>>>>> 7af3c89b67b19a64f0e3263b6bbec83ec049457a
 export {
 	NUM_NEIGHBORS,
 	add_tile,
@@ -124,9 +130,14 @@ export {
 	coordToString,
 	StringToCoord,
 	who_is_in_coord,
+<<<<<<< HEAD
     print_board,
     constructRoadGraph,
     getBoard,
     initializeBoard
+=======
+	print_board,
+	is_available_coord
+>>>>>>> 7af3c89b67b19a64f0e3263b6bbec83ec049457a
 };
 

@@ -1,6 +1,5 @@
 import * as T from "./tile";
 import * as D from "./deck";
-import { isReturnStatement, textChangeRangeIsUnchanged } from "typescript";
 
 const NUM_NEIGHBORS:number=4; 
 type Board={
@@ -32,9 +31,11 @@ function is_available_coord(board:Board,coord:T.Coord2D):boolean{
 		for(let j=-2;j<3;j++){
 		let x=x_0-i;
 		let y=y_0-j;
+		console.log(x,y,i,j);
 		if(Math.abs(i)+Math.abs(j)<=3){
-			const new_coord=coordToString(coord);
-			if( new_coord in board.board){
+			const new_coord:T.Coord2D={x:x,y:y};
+			const new_string_coord=coordToString(new_coord);
+			if( new_string_coord in board.board){
 				return true;
 			}
 		}
@@ -62,7 +63,6 @@ function print_board(board:Board){
 	console.log(D.print_deck(board.deck,"***"));
 }
 
-
 export {
 	NUM_NEIGHBORS,
 	add_tile,
@@ -70,6 +70,7 @@ export {
 	coordToString,
 	StringToCoord,
 	who_is_in_coord,
-	print_board
+	print_board,
+	is_available_coord
 };
 

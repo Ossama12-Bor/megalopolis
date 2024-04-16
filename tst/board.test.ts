@@ -1,6 +1,6 @@
-import * as B from "../dist/board.js";
-import * as D from "../dist/deck.js";
-import * as T from "../dist/tile.js";
+import * as B from "../src/board";
+import * as D from "../src/deck";
+import * as T from "../src/tile";
 
 const board:B.Board={board:{},size:0,deck:D.generate_deck(D.deck_empty(),5)};
 

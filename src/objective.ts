@@ -30,11 +30,19 @@ function getObjScore(obj : Objective) : number{
 
 /* Calculates the objoctives total score (required to win)*/
 function ObjTotalScore(objList : Objective[]) : number {
-    return objList.reduce((accScore,currObjective) =>{
-	return accScore + getObjScore(currObjective);
-    });
+    let totalScore : number = 0;
+    objList.forEach((obj) => {totalScore += getObjScore(obj);});
+    return totalScore;
 }
 
+/* Creates an objective ,given the score and score function */
+function CreateObj(aScore : number, aScoreFunction : (board : B.Board) => number){
+    let obj : Objective = {
+	score : aScore,
+	scoreFunction : aScoreFunction
+    };
+    return obj;
+}
 
 //************LIST OF OUR OBJECTIVES************//
 //**********************************************//
@@ -45,19 +53,15 @@ const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
     {
 	const CCs = G.getConnectedComponents<number>(B.constructRoadGraph(board));
 	return -CCs.length;
-    }
+    };
 
-const ReduceCirculation_obj : Objective = {
-    score : 0,
-    scoreFunction : ReduceCirculation_scoreFunction
-}
+const ReduceCirculation_obj : Objective = CreateObj(0,ReduceCirculation_scoreFunction);
 
 /* Representation of "arrondissements" objective */
 // Score Function
 // const Groupings_scoreFunction : (board : B.Board) => number = (board) =>
 //     {
 // 	const
-
 //     }
 
 
@@ -69,6 +73,7 @@ objList.push(ReduceCirculation_obj);
 
 export{
     Objective,
+    CreateObj,
     objList,
     boardObjScore,
     getObjScore,

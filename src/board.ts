@@ -4,7 +4,8 @@ import * as G from "./graph.js";
 
 import { isReturnStatement, textChangeRangeIsUnchanged } from "typescript";
 
-const NUM_NEIGHBORS:number=4; 
+const NUM_NEIGHBORS:number=4;
+
 type Board={
 	board: {[key:string]:number},
 	size: number,
@@ -21,9 +22,16 @@ function StringToCoord(chaine:string):T.Coord2D{
 	return coord;
 }
 
+function initializeBoard(d : D.deck){
+    let b : Board = {
+	board : {},
+	size : 0,
+	deck : D.deck_empty()
+    }
+}
 
 function getBoard(board : Board) : {[key:string]:number} {
-    return board.board
+    return board.board;
 }
 
 function who_is_in_coord(board:Board,coord:T.Coord2D):number{
@@ -63,25 +71,38 @@ console.log(board);*/
 
 /* construction of road graph , returns a graph*/
 function constructRoadGraph(board : Board) : G.graph<number>{
-    const b = getBoard(board);
+    const b  = getBoard(board);
     let g : G.graph<number> = G.cons_empty_graph();
     let c : T.Coord2D;
-    for((_coord,id) in b)
-	g = G.add_node(g,id);
-    for((coord,_id) in b){
+    // for((_coord,id) in b)
+    // 	g = G.add_node(g,id);
+    // for((coord,_id) in b){
 
-	c = StringToCoord(coord);
-	let id : number = b[c];
-	let x = c.x;
-	let y = c.y;
-	// (x+1,y)(x-1,y)(x,y+1)(x,y-1)
+    // 	c = StringToCoord(coord);
+    // 	let id : number = b[c];
+    // 	let x = c.x;
+    // 	let y = c.y;
+    // 	// (x+1,y)(x-1,y)(x,y+1)(x,y-1)
+    // 	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
+    // 	neighbors.forEach((n)=>{
+    // 	    let cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
+    // 	    if(b[cStr] !== undefined)
+    // 		g = G.add_edge(g,b[cStr],id);
+    // 	});//to2Dcoord
+    // }
+    Object.entries(b).forEach(([coord,id]) => {
+	g = G.add_node(g,id);
+    });
+    Object.entries(b).forEach(([coord,id])=> {
+	const x = StringToCoord(coord).x;
+	const y = StringToCoord(coord).y;
 	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
 	neighbors.forEach((n)=>{
-	    let cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
+	    const cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
 	    if(b[cStr] !== undefined)
 		g = G.add_edge(g,b[cStr],id);
-	});//to2Dcoord
-    }
+	});
+    });
     return g;
 }
 
@@ -96,7 +117,7 @@ export {
 	who_is_in_coord,
     print_board,
     constructRoadGraph,
-    constructGroupGraph,
-    getBoard
+    getBoard,
+    initializeBoard
 };
 

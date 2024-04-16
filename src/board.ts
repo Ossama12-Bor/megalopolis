@@ -1,5 +1,5 @@
-import * as T from "./tile.js";
-import * as D from "./deck.js";
+import * as T from "./tile";
+import * as D from "./deck";
 import { isReturnStatement, textChangeRangeIsUnchanged } from "typescript";
 
 const NUM_NEIGHBORS:number=4; 
@@ -25,9 +25,24 @@ function who_is_in_coord(board:Board,coord:T.Coord2D):number{
 	return board.board[coordToString(coord)];
 }
 
-/*function is_coord_avail(board:Board,coord:T.Coord2D):boolean{
+function is_available_coord(board:Board,coord:T.Coord2D):boolean{
+	const x_0=coord.x;
+	const y_0=coord.y;
+	for(let i=-2;i<3;i++){
+		for(let j=-2;j<3;j++){
+		let x=x_0-i;
+		let y=y_0-j;
+		if(Math.abs(i)+Math.abs(j)<=3){
+			const new_coord=coordToString(coord);
+			if( new_coord in board.board){
+				return true;
+			}
+		}
+		}
+	}
+	return false;
+}
 
-}*/
 
 function add_tile(board:Board,tile_id:number,coord:T.Coord2D){
 	const new_coord1:T.Coord2D={x:coord.x,y:coord.y};
@@ -46,15 +61,7 @@ function print_board(board:Board){
 	console.log(board.size);
 	console.log(D.print_deck(board.deck,"***"));
 }
-/*const board:Board={board:{},size:0,deck:D.generate_deck(D.deck_empty(),5)};
 
-console.log(D.print_deck(board.deck,"**"));
-const coord1:T.Coord2D={x:0,y:0};
-const coord2:T.Coord2D={x:1,y:0};
-add_tile(board,1,coord1);
-console.log(board);
-add_tile(board,2,coord2);
-console.log(board);*/
 
 export {
 	NUM_NEIGHBORS,

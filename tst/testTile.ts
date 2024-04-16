@@ -1,7 +1,7 @@
 import * as T from "../src/tile.js";
 import * as D from "../src/deck.js";
 
-const aBlock1 : T.Block = T.CreateBlock(T.BlockColor.GREEN,T.to2Dcoord(0,0),T.Road.NO_ROAD);
+const aBlock1 : T.Block = T.CreateBlock(T.BlockColor.GREEN,T,T.Road.NO_ROAD);
 const aBlock2 : T.Block = T.CreateBlock(T.BlockColor.GRAY,T.to2Dcoord(0,0),T.Road.NORTH_EST);
 const aBlock3 : T.Block = T.CreateBlock(T.BlockColor.BLUE,T.to2Dcoord(0,0),T.Road.NORTH_EST);
 const aBlock4 : T.Block = T.CreateBlock(T.BlockColor.ORANGE,T.to2Dcoord(0,0),T.Road.NORTH_EST);

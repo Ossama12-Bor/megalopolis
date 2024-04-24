@@ -55,6 +55,8 @@ function display_line(block: T.Block, i : number) {
     blockContent = whiteBox_horiz;	    
     blockContent += tab_colors_half[color];
 	}
+	else if (road === T.Road.WEST_EST)
+    blockContent = White + repeatChar(' ', 9) + Reset;	    	    
 	else {
     blockContent = tab_colors[color];
 	}

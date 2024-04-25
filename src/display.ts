@@ -21,6 +21,7 @@ const blueBoxhalf = Blue + repeatChar(' ', 4) + Reset;
 const orangeBoxhalf = Orange + repeatChar(' ', 4) + Reset;
 const tab_colors: Array<string> = [greenBox, grayBox, blueBox, orangeBox];
 const tab_colors_half = [greenBoxhalf, grayBoxhalf, blueBoxhalf, orangeBoxhalf];
+
 function repeatChar(char: string, times: number): string {
     let result = '';
     for (let i = 0; i < times; i++) {

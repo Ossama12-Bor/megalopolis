@@ -117,8 +117,9 @@ function display_board(board: B.Board) {
 const sampleDeck: D.deck = D.generate_deck(D.deck_empty(), 5);
 const sampleBoard: B.Board = {
     board: {},
-    size: 0,
-    deck: sampleDeck
+    tiles_played_num: 0,
+    deck: sampleDeck,
+	empty:{}
 };
 
 B.add_tile(sampleBoard, 0, { x: 0, y: 0 });

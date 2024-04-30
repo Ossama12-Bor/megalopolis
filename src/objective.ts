@@ -49,13 +49,13 @@ function CreateObj(aScore : number, aScoreFunction : (board : B.Board) => number
 
 /* Representation of "reduire la circulation" objective */
 // Score Function 
-const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
+/*const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
     {
 	const CCs = G.getConnectedComponents<number>(B.constructRoadGraph(board));
 	return -CCs.length;
-    };
+    };*/
 
-const ReduceCirculation_obj : Objective = CreateObj(0,ReduceCirculation_scoreFunction);
+//const ReduceCirculation_obj : Objective = CreateObj(0,ReduceCirculation_scoreFunction);
 
 /* Representation of "arrondissements" objective */
 // Score Function
@@ -67,7 +67,7 @@ const ReduceCirculation_obj : Objective = CreateObj(0,ReduceCirculation_scoreFun
 
 
 /* Constructing our list of objectives */
-objList.push(ReduceCirculation_obj);
+//objList.push(ReduceCirculation_obj);
 
 
 

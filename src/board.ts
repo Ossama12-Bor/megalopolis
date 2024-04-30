@@ -1,7 +1,7 @@
 
 import * as T from "./tile.js";
 import * as D from "./deck.js";
-import * as G from "./graph.js";
+//import * as G from "./graph.js";
 
 
 
@@ -50,6 +50,9 @@ function blockInPosition(board:Board,coord:T.Coord2D):T.Block{
 	let coordinate:number=who_is_in_coord(board,coord);
 	return board.deck.deck[coordinate/NUM_NEIGHBORS].blockList[coordinate%NUM_NEIGHBORS];
 }
+/*function connected_by_road(block1:T.Block,BLOCK2:T.Block):Boolean{
+	return true;
+}*/
 /*function is_available_coord(board:Board,coord:T.Coord2D):boolean{
 	const x_0=coord.x;
 	const y_0=coord.y;

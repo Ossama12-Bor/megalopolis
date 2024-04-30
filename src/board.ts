@@ -1,11 +1,17 @@
-import * as T from "./tile";
-import * as D from "./deck";
 
-const NUM_NEIGHBORS:number=4; 
+import * as T from "./tile.js";
+import * as D from "./deck.js";
+import * as G from "./graph.js";
+
+import { isReturnStatement, textChangeRangeIsUnchanged } from "typescript";
+
+
+const NUM_NEIGHBORS:number=4;
+
 type Board={
-	board:{[key:string]:number},
-	size:number,
-	deck:D.deck //it represents the reverse of game deck
+	board: {[key:string]:number},
+	size: number,
+	deck: D.deck //it represents the reverse of game deck
 }
 
 function coordToString(coord: T.Coord2D): string {
@@ -18,7 +24,18 @@ function StringToCoord(chaine:string):T.Coord2D{
 	return coord;
 }
 
+function initializeBoard(){
+    let b : Board = {
+	board : {},
+	size : 0,
+	deck : D.deck_empty()
+    }
+    return b;
+}
 
+function getBoard(board : Board) : {[key:string]:number} {
+    return board.board;
+}
 
 function who_is_in_coord(board:Board,coord:T.Coord2D):number{
 	return board.board[coordToString(coord)];
@@ -63,6 +80,49 @@ function print_board(board:Board){
 	console.log(D.print_deck(board.deck,"***"));
 }
 
+<<<<<<< HEAD
+
+/* construction of road graph , returns a graph*/
+function constructRoadGraph(board : Board) : G.graph<number>{
+    const b  = getBoard(board);
+    let g : G.graph<number> = G.cons_empty_graph();
+    let c : T.Coord2D;
+    // for((_coord,id) in b)
+    // 	g = G.add_node(g,id);
+    // for((coord,_id) in b){
+
+    // 	c = StringToCoord(coord);
+    // 	let id : number = b[c];
+    // 	let x = c.x;
+    // 	let y = c.y;
+    // 	// (x+1,y)(x-1,y)(x,y+1)(x,y-1)
+    // 	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
+    // 	neighbors.forEach((n)=>{
+    // 	    let cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
+    // 	    if(b[cStr] !== undefined)
+    // 		g = G.add_edge(g,b[cStr],id);
+    // 	});//to2Dcoord
+    // }
+    Object.entries(b).forEach(([coord,id]) => {
+	g = G.add_node(g,id);
+    });
+    Object.entries(b).forEach(([coord,id])=> {
+	const x = StringToCoord(coord).x;
+	const y = StringToCoord(coord).y;
+	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
+	neighbors.forEach((n)=>{
+	    const cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
+	    if(b[cStr] !== undefined)
+		g = G.add_edge(g,b[cStr],id);
+	});
+    });
+    return g;
+}
+
+// function constructGroupGraph(board : Board) : G.graph<number>{}
+
+=======
+>>>>>>> 7af3c89b67b19a64f0e3263b6bbec83ec049457a
 export {
 	NUM_NEIGHBORS,
 	add_tile,
@@ -70,7 +130,14 @@ export {
 	coordToString,
 	StringToCoord,
 	who_is_in_coord,
+<<<<<<< HEAD
+    print_board,
+    constructRoadGraph,
+    getBoard,
+    initializeBoard
+=======
 	print_board,
 	is_available_coord
+>>>>>>> 7af3c89b67b19a64f0e3263b6bbec83ec049457a
 };
 

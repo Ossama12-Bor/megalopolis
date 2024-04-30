@@ -15,6 +15,8 @@ parcel:
 
 test:
 	npx jest
+testcov:
+	npx jest --coverage
 
 run: # build
 	@node --experimental-specifier-resolution=node dist/main.js

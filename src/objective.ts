@@ -84,13 +84,13 @@ const aDummy_scoreFunction : (board : B.Board) => number = (board) =>
 	return 15;
     };
 
-const aDummy_obj : Objective = createObj(15, aDummy_scoreFunction);
+const aDummy_obj : Objective = CreateObj(15, aDummy_scoreFunction);
 
 
 /* Constructing our list of objectives */
 
 objList.push(aDummy_obj);
-objList.push(ReduceCirculation_obj);
+//objList.push(ReduceCirculation_obj);
 //objList.push(ReduceCirculation_obj);
 
 

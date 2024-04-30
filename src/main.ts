@@ -1,3 +1,8 @@
+import * as B from "./board.js"
+import * as O from "./objective.js"
+import * as D from "./deck.js"
+
+
 /* Here include what should be included */
 
 /* pseudo code :
@@ -19,3 +24,16 @@
       hasWon     = (finalScore >= objScore)
 
 */
+function main() {
+    let board : B.Board = B.initializeBoard();
+    let objectives : O.Objective[] = O.initialize_objectives(1);
+    let objectiveScore : number = O.ObjTotalScore(objectives);
+    D.generate_deck(board.deck ,15);
+    for (let i = 0; i < 15; ++i){
+	B.add_tile(board, i, B.StringToCoord(Object.keys(board.empty)[i]));
+    }
+    let final_score : number = objectives.reduce((acc, objective) => {
+	return acc + O.boardObjScore(board, objective);
+    },0);
+    return (final_score >= objectiveScore);
+}

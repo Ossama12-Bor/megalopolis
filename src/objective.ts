@@ -63,13 +63,13 @@ function initializeObjectives() : Objective[]
 
 /* Representation of "reduire la circulation" objective */
 // Score Function 
-const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
+/*const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
     {
 	const CCs = G.getConnectedComponents<number>(B.constructRoadGraph(board));
 	return -CCs.length;
-    };
+    };*/
 
-const ReduceCirculation_obj : Objective = CreateObj(0,ReduceCirculation_scoreFunction);
+//const ReduceCirculation_obj : Objective = CreateObj(0,ReduceCirculation_scoreFunction);
 
 /* Representation of "arrondissements" objective */
 // Score Function
@@ -91,6 +91,7 @@ const aDummy_obj : Objective = createObj(15, aDummy_scoreFunction);
 
 objList.push(aDummy_obj);
 objList.push(ReduceCirculation_obj);
+//objList.push(ReduceCirculation_obj);
 
 
 

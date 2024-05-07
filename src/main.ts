@@ -40,3 +40,4 @@ function main() {
     return (final_score >= objectiveScore);
     
 }
+main();

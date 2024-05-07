@@ -29,7 +29,7 @@ function initializeBoard(){
 	board : {},
 	tiles_played_num: 0,
 	deck : D.deck_empty(),
-	empty:{}
+	empty:{'0,0':1}
     }
     return b;
 }

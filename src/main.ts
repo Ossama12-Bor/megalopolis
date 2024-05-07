@@ -29,7 +29,7 @@ function main() {
     let board : B.Board = B.initializeBoard();
     let objectives : O.Objective[] = O.initializeObjectives();
     let objectiveScore : number = O.ObjTotalScore(objectives);
-    D.generate_deck(board.deck ,15);
+    board.deck = D.generate_deck(board.deck ,15);
     for (let i = 0; i < 15; ++i){
 	B.add_tile(board, i, B.StringToCoord(Object.keys(board.empty)[i]));
     }

@@ -114,21 +114,21 @@ function display_board(board: B.Board) {
         console.log(line3);
     }
 }
-const sampleDeck: D.deck = D.generate_deck(D.deck_empty(), 5);
-const sampleBoard: B.Board = {
-    board: {},
-    tiles_played_num: 0,
-    deck: sampleDeck,
-	empty:{}
-};
+// const sampleDeck: D.deck = D.generate_deck(D.deck_empty(), 5);
+// const sampleBoard: B.Board = {
+//     board: {},
+//     tiles_played_num: 0,
+//     deck: sampleDeck,
+// 	empty:{}
+// };
 
-B.add_tile(sampleBoard, 0, { x: 0, y: 0 });
-B.add_tile(sampleBoard, 1, { x: 1, y: 2 });
-B.add_tile(sampleBoard, 2, { x: 0, y: 4 });
-B.add_tile(sampleBoard, 3, { x: 2, y: 3 });
+// B.add_tile(sampleBoard, 0, { x: 0, y: 0 });
+// B.add_tile(sampleBoard, 1, { x: 1, y: 2 });
+// B.add_tile(sampleBoard, 2, { x: 0, y: 4 });
+// B.add_tile(sampleBoard, 3, { x: 2, y: 3 });
 	
 // Display the sample board
-display_board(sampleBoard);
+//display_board(sampleBoard);
 export {
     display_board
 };

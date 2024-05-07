@@ -176,10 +176,11 @@ function constructRoadGraph(board : Board) : G.graph<number>{
 	const y = StringToCoord(coord).y;
 	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
 	neighbors.forEach((n)=>{
-	    const cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
+	    const coord_neighbor : string =  coordToString(T.to2Dcoord(n[0],n[1]));
 	    //console.log(cStr);
-	    if(b[cStr] !== undefined){
-		g = G.add_edge(g,b[cStr],id);
+	    if(b[coord_neighbor] !== undefined){
+		if(is_road_connected(board, coord, coord_neighbor))
+		    g = G.add_edge(g,b[coord],id);
 		//console.log(b[cStr]);
 	    }
 	});

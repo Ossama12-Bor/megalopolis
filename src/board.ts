@@ -89,8 +89,10 @@ function is_road_connected(board: Board, coord_id: string, coord_id_neighbour: s
     const blockIndexInTile_id = id % 4;
     const tileIndex_id_neighbour = Math.floor(id_neighbour / 4);
     const blockIndexInTile_id_neighbour = id_neighbour % 4;
-    const block_id = board.deck.deck[tileIndex_id * 4].blockList[blockIndexInTile_id];
-    const block_id_neighbour = board.deck.deck[tileIndex_id_neighbour * 4].blockList[blockIndexInTile_id_neighbour];
+    const tile_id = board.deck.deck[tileIndex_id];
+    const tile_id_neighbour = board.deck.deck[tileIndex_id_neighbour];        
+    const block_id = tile_id.blockList[blockIndexInTile_id];
+    const block_id_neighbour = tile_id_neighbour.blockList[blockIndexInTile_id_neighbour];
     const road_id = block_id.road;
     const road_id_neighbour = block_id_neighbour.road;
     return (

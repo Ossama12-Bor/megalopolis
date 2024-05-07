@@ -108,47 +108,50 @@ function print_board(board:Board){
 }
 
 /* construction of road graph , returns a graph*/
-// function constructRoadGraph(board : Board) : G.graph<number>{
-//     const b : {[key:string]:number} = getBoard(board);
-//     let g : G.graph<number> = G.cons_empty_graph();
-//     let c : T.Coord2D;
-//     /*
-//     Object.values(b).forEach(id => {
-// 	g = G.add_node(g, id);
-//     });
-//     Object.keys(b).forEach(coord => {
+function constructRoadGraph(board : Board) : G.graph<number>{
+    const b : {[key:string]:number} = getBoard(board);
+    let g : G.graph<number> = G.cons_empty_graph();
+    let c : T.Coord2D;
+    /*
+    Object.values(b).forEach(id => {
+	g = G.add_node(g, id);
+    });
+    Object.keys(b).forEach(coord => {
 
-// 	c = StringToCoord(coord);
-// 	let id : number = b[c];
-// 	let x = c.x;
-// 	let y = c.y;
-// 	// (x+1,y)(x-1,y)(x,y+1)(x,y-1)
-// 	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
-// 	neighbors.forEach((n)=>{
-// 	    let cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
-// 	    if(b[cStr] !== undefined)
-// 		g = G.add_edge(g,b[cStr],id);
-// 	});//to2Dcoord
+	c = StringToCoord(coord);
+	let id : number = b[c];
+	let x = c.x;
+	let y = c.y;
+	// (x+1,y)(x-1,y)(x,y+1)(x,y-1)
+	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
+	neighbors.forEach((n)=>{
+	    let cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
+	    if(b[cStr] !== undefined)
+		g = G.add_edge(g,b[cStr],id);
+	});//to2Dcoord
 	
-//     });
-//     */
-//     Object.entries(b).forEach(([coord,id]) => {
-// 	g = G.add_node(g,id);
-//     });
+    });
+    */
+    Object.entries(b).forEach(([_,id]) => {
+	g = G.add_node(g,id);
+    });
     
-//     Object.entries(b).forEach(([coord,id])=> {
-// 	const x = StringToCoord(coord).x;
-// 	const y = StringToCoord(coord).y;
-// 	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
-// 	neighbors.forEach((n)=>{
-// 	    const cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
-// 	    if(b[cStr] !== undefined)
-// 		g = G.add_edge(g,b[cStr],id);
-// 	});
-//     });
+    Object.entries(b).forEach(([coord,id])=> {
+	const x = StringToCoord(coord).x;
+	const y = StringToCoord(coord).y;
+	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
+	neighbors.forEach((n)=>{
+	    const cStr =  coordToString(T.to2Dcoord(n[0],n[1]));
+	    //console.log(cStr);
+	    if(b[cStr] !== undefined){
+		g = G.add_edge(g,b[cStr],id);
+		//console.log(b[cStr]);
+	    }
+	});
+    });
     
-//     return g;
-// }
+    return g;
+}
 
 // function constructGroupGraph(board : Board) : G.graph<number>{}
 
@@ -162,6 +165,7 @@ export {
 	who_is_in_coord,
 	print_board,
 	add_positions_to_empty,
-	blockInPosition
+    blockInPosition,
+    constructRoadGraph,
 };
 

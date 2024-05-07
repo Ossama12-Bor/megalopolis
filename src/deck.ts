@@ -43,5 +43,4 @@ function print_deck(Deck:deck,prefix:string){
 	}
 }
 
-
 export {generate_deck,deck_empty,deck,create_deck,add_deck,print_deck};

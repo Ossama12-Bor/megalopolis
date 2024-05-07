@@ -113,10 +113,10 @@ function DisplayTile(t : Tile,prefix : string){
 }
 function generateTile():Tile
 {
-	const building:Block=CreateBlock(BlockColor.ORANGE,Math.floor(Math.random())%Road.ROAD_COUNT-2);
-	const indusrty:Block=CreateBlock(BlockColor.GRAY,Math.floor(Math.random())%Road.ROAD_COUNT-2);
+	const building:Block=CreateBlock(BlockColor.ORANGE,Math.floor(Math.random()*1000)%Road.ROAD_COUNT-2);
+	const indusrty:Block=CreateBlock(BlockColor.GRAY,Math.floor(Math.random()*1000)%Road.ROAD_COUNT-2);
 	const parc:Block=CreateBlock(BlockColor.GREEN,Road.NO_ROAD);
-	const commercial_center:Block=CreateBlock(BlockColor.BLUE,Math.floor(Math.random())%Road.ROAD_COUNT-2);
+	const commercial_center:Block=CreateBlock(BlockColor.BLUE,Math.floor(Math.random()*1000)%Road.ROAD_COUNT-2);
 	const tile:Block[]=[building,indusrty,parc,commercial_center];
 	return CreateTile(tile);
 }

@@ -47,11 +47,11 @@ function CreateObj(aScore : number, aScoreFunction : (board : B.Board) => number
 function initializeObjectives() : Objective[]
 {
     const nObj : number = objList.length;
-    const objListGame = [];
+    let objListGame : Objective[] = [];
     // let chosen = {};
     let r : number;
     for(let i = 0;i<5;i++){
-	r = (Math.random() * 1000) % nObj;
+	r = Math.floor(Math.random() * 1000) % nObj;
 	objListGame.push(objList[r]);
 	// ! r can be repeated -> to be fixed after
     }
@@ -63,15 +63,15 @@ function initializeObjectives() : Objective[]
 
 /* Representation of "reduire la circulation" objective */
 // Score Function 
-/*const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
-    {
-	const CCs = G.getConnectedComponents<number>(B.constructRoadGraph(board));
-	return -CCs.length;
-    };*/
+// const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
+//     {
+// 	const CCs = G.getConnectedComponents<number>(B.constructRoadGraph(board));
+// 	return -CCs.length;
+//     };
 
-//const ReduceCirculation_obj : Objective = CreateObj(0,ReduceCirculation_scoreFunction);
+// const ReduceCirculation_obj : Objective = CreateObj(0, ReduceCirculation_scoreFunction);
 
-/* Representation of "arrondissements" objective */
+// Representation of "arrondissements" objective
 // Score Function
 // const Groupings_scoreFunction : (board : B.Board) => number = (board) =>
 //     {

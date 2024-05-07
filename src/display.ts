@@ -81,12 +81,11 @@ function display_board(board: B.Board) {
         const [xStr, yStr] = key.split(',');
         const x = parseInt(xStr);
         const y = parseInt(yStr);
-        y1 = Math.min(x, y1);
-        x1 = Math.min(y, x1);
-        y2 = Math.max(x, y2);
-        x2 = Math.max(y, x2);
+        y1 = Math.min(y, y1);
+        x1 = Math.min(x, x1);
+        y2 = Math.max(y, y2);
+        x2 = Math.max(x, x2);
     }
-    console.log(`x1 = ${x1} x2= ${x2} y1 = ${y1} y2 = ${y2}`)
     // Display each tile
     for (let y = y2; y >= y1; y -= 1) {
         let line1 = '';

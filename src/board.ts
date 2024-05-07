@@ -127,8 +127,8 @@ function add_positions_to_empty(empty:{[key:string]:number},coord:T.Coord2D){
 function add_tile(board:Board,tile_id:number,coord:T.Coord2D){
 	const new_coord1:T.Coord2D={x:coord.x,y:coord.y};
 	const new_coord2:T.Coord2D={x:coord.x+1,y:coord.y};
-	const new_coord3:T.Coord2D={x:coord.x,y:coord.y+1};
-	const new_coord4:T.Coord2D={x:coord.x+1,y:coord.y+1};
+	const new_coord3:T.Coord2D={x:coord.x,y:coord.y-1};
+	const new_coord4:T.Coord2D={x:coord.x+1,y:coord.y-1};
 	board.board[coordToString(new_coord1)]=tile_id*NUM_NEIGHBORS;
 	board.board[coordToString(new_coord2)]=tile_id*NUM_NEIGHBORS+1;
 	board.board[coordToString(new_coord3)]=tile_id*NUM_NEIGHBORS+2;

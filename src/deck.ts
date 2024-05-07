@@ -39,7 +39,7 @@ function print_deck(Deck:deck,prefix:string){
 	console.log(`${prefix}`);
     console.log("deck size is:\n",Deck.size);
 	for(let i=0;i<Deck.size;i++){
-		T.DisplayTile(Deck.deck[i],prefix);
+		T.DisplayTile(Deck.deck[i]);
 	}
 }
 

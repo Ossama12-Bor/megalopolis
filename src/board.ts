@@ -153,6 +153,12 @@ function constructRoadGraph(board : Board) : G.graph<number>{
     return g;
 }
 
+function board_copy(board:Board):Board{
+	const new_board:Board={board:{...board.board},tiles_played_num:board.tiles_played_num,deck:board.deck,empty:{...board.empty}};
+	return new_board;
+}
+
+
 // function constructGroupGraph(board : Board) : G.graph<number>{}
 
 export {
@@ -167,5 +173,6 @@ export {
 	add_positions_to_empty,
     blockInPosition,
     constructRoadGraph,
+	board_copy
 };
 

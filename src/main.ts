@@ -42,6 +42,6 @@ function main() {
 		console.log("player won the game ! ");
 	}
 	else
-		console.log("player lose the game !");
+		console.log("player lost the game !");
 }
 main();

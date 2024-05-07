@@ -37,6 +37,11 @@ function main() {
 	return acc + O.boardObjScore(board, objective);
     },0);
     E.display_board(board);
-    return (final_score >= objectiveScore);
+	console.log("player got ",final_score,"points");
+	if(final_score >= objectiveScore){
+		console.log("player won the game ! ");
+	}
+	else
+		console.log("player lost the game !");
 }
 main();

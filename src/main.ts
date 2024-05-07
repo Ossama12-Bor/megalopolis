@@ -31,7 +31,7 @@ function main() {
     let objectiveScore : number = O.ObjTotalScore(objectives);
     board.deck = D.generate_deck(board.deck ,15);
     for (let i = 0; i < 15; ++i){
-	B.add_tile(board, i, B.StringToCoord(Object.keys(board.empty)[i]));
+	B.add_tile(board, i, B.StringToCoord(Object.keys(board.empty)[Math.floor((Math.random()*1000))%Object.keys(board.empty).length]));
     }
     let final_score : number = objectives.reduce((acc, objective) => {
 	return acc + O.boardObjScore(board, objective);

@@ -74,6 +74,41 @@ function blockInPosition(board:Board,coord:T.Coord2D):T.Block{
 }
 */
 
+function is_road_connected(board: Board, coord_id: string, coord_id_neighbour: string): boolean {
+    const x_id = StringToCoord(coord_id).x;
+    const y_id = StringToCoord(coord_id).y;
+    const x_id_neighbour = StringToCoord(coord_id_neighbour).x;
+    const y_id_neighbour = StringToCoord(coord_id_neighbour).y;
+    let direction = 0;
+    if (x_id_neighbour === x_id + 1) direction = 1;
+    else if (x_id_neighbour === x_id - 1) direction = 3;
+    else if (y_id_neighbour === y_id - 1) direction = 2;        
+    const id = board.board[coord_id];
+    const id_neighbour = board.board[coord_id_neighbour];
+    const tileIndex_id = Math.floor(id / 4);
+    const blockIndexInTile_id = id % 4;
+    const tileIndex_id_neighbour = Math.floor(id_neighbour / 4);
+    const blockIndexInTile_id_neighbour = id_neighbour % 4;
+    const block_id = board.deck.deck[tileIndex_id * 4].blockList[blockIndexInTile_id];
+    const block_id_neighbour = board.deck.deck[tileIndex_id_neighbour * 4].blockList[blockIndexInTile_id_neighbour];
+    const road_id = block_id.road;
+    const road_id_neighbour = block_id_neighbour.road;
+    return (
+        ((road_id === T.Road.WEST_EST || road_id === T.Road.NORTH_EST || road_id === T.Road.SOUTH_EST) &&
+            (road_id_neighbour === T.Road.WEST_EST || road_id_neighbour === T.Road.NORTH_WEST || road_id_neighbour === T.Road.SOUTH_WEST) &&
+            direction === 1) ||
+        ((road_id === T.Road.WEST_EST || road_id === T.Road.NORTH_WEST || road_id === T.Road.SOUTH_WEST) &&
+            (road_id_neighbour === T.Road.WEST_EST || road_id_neighbour === T.Road.NORTH_EST || road_id_neighbour === T.Road.SOUTH_EST) &&
+            direction === 3) ||
+        ((road_id === T.Road.NORTH_SOUTH || road_id === T.Road.NORTH_WEST || road_id === T.Road.NORTH_EST) &&
+            (road_id_neighbour === T.Road.SOUTH_WEST || road_id_neighbour === T.Road.SOUTH_EST || road_id_neighbour === T.Road.NORTH_SOUTH) &&
+            direction === 0) ||
+        ((road_id === T.Road.NORTH_SOUTH || road_id === T.Road.SOUTH_WEST || road_id === T.Road.SOUTH_EST) &&
+            (road_id_neighbour === T.Road.NORTH_WEST || road_id_neighbour === T.Road.NORTH_EST || road_id_neighbour === T.Road.NORTH_SOUTH) &&
+            direction === 2)
+    );
+}
+
 function add_positions_to_empty(empty:{[key:string]:number},coord:T.Coord2D){
 	const x = coord.x;
 	const y= coord.y;

@@ -26,8 +26,10 @@ import * as E from "./display.js"
 
 */
 function main() {
+    
     let board : B.Board = B.initializeBoard();
     let objectives : O.Objective[] = O.initializeObjectives();
+    O.displayObjectives(objectives,"-------------\nIn-game objectives\n-------------\n","-------------\n");
     let objectiveScore : number = O.ObjTotalScore(objectives);
     board.deck = D.generate_deck(board.deck ,15);
     for (let i = 0; i < 15; ++i){

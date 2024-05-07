@@ -1,6 +1,6 @@
-import * as T from "./tile.js";
-import * as D from "./deck.js";
-import * as B from "./board.js";
+import * as T from "./tile";
+import * as D from "./deck";
+import * as B from "./board";
 
 const Reset = "\x1b[0m";
 const boxSize = 9;

@@ -15,9 +15,14 @@ describe('General board test suite',() =>{
 		B.add_tile(board,2,coord2);
 		expect(board.tiles_played_num).toBe(2);
 		expect((Object.keys(board.empty)).length).toBe(26);
-		console.log(B.blockInPosition(board,coord1));
-		console.log(board.deck.deck[1].blockList[0])
-
+		//console.log(B.blockInPosition(board,coord1));
+		//console.log(board.deck.deck[1].blockList[0])
+		//B.print_board(board);
+		const new_board:B.Board=B.board_copy(board);
+		board.tiles_played_num=0;
+		board.board['0,0']=0;
+		//B.print_board(board);
+		//B.print_board(new_board);
 
 	})
 });

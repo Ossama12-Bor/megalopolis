@@ -15,6 +15,11 @@ describe('General board test suite',() =>{
 		const aDeck: D.deck = D.add_deck(D.add_deck(D.generate_deck(D.deck_empty(),1),aTile),aTile);
 		//D.print_deck(aDeck,"****");
 		expect(aDeck.size).toBe(3);
+		const new_deck:D.deck = D.deck_copy(aDeck);
+		//D.print_deck(new_deck,"first");
+		new_deck.size=0;
+		//D.print_deck(new_deck,"second");
+		//D.print_deck(aDeck,"third");
 
 	})
 });

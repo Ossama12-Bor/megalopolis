@@ -104,8 +104,7 @@ function DisplayBlock(b : Block, prefix : string){
     console.log(`${prefix}${colorToString(getBlockColor(b))}:${getRoad(b)}`);
 }
 /*Displays a Tile for same purpose*/
-function DisplayTile(t : Tile,prefix : string){
-    console.log(`${prefix}`);
+function DisplayTile(t : Tile,){
     console.log("==========");
     for(let i = 0;i < BlockColor.NUM_COLORS;i++)
 	DisplayBlock(extractBlock(t,i),`Block(${i}) = `);
@@ -113,12 +112,20 @@ function DisplayTile(t : Tile,prefix : string){
 }
 function generateTile():Tile
 {
+    const table = [ BlockColor.ORANGE, BlockColor.GRAY, BlockColor.GREEN, BlockColor.BLUE];
 	const building:Block=CreateBlock(BlockColor.ORANGE,Math.floor(Math.random()*1000)%Road.ROAD_COUNT-2);
 	const indusrty:Block=CreateBlock(BlockColor.GRAY,Math.floor(Math.random()*1000)%Road.ROAD_COUNT-2);
 	const parc:Block=CreateBlock(BlockColor.GREEN,Road.NO_ROAD);
 	const commercial_center:Block=CreateBlock(BlockColor.BLUE,Math.floor(Math.random()*1000)%Road.ROAD_COUNT-2);
-	const tile:Block[]=[building,indusrty,parc,commercial_center];
-	return CreateTile(tile);
+    let tile:Block[]=[building,indusrty,parc,commercial_center];
+    for (let i = tile.length - 1; i > 0; i--) {
+	const j = Math.floor(Math.random() * (i + 1));
+	const temp = tile[i];
+	tile[i] = tile[j];
+	tile[j] = temp;
+    }
+    
+    return CreateTile(tile);
 }
 
 export {

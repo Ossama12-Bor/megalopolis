@@ -200,6 +200,7 @@ function board_copy(board:Board):Board{
 // function constructGroupGraph(board : Board) : G.graph<number>{}
 
 export {
+    is_road_connected,    
 	NUM_NEIGHBORS,
 	initializeBoard,
 	add_tile,

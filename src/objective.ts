@@ -51,7 +51,7 @@ function initializeObjectives() : Objective[]
     // let chosen = {};
     let r : number;
     for(let i = 0;i<5;i++){
-	r = Math.floor(Math.random() * 1000) % nObj;
+	r = (Math.floor(Math.random() * 1000)) % nObj;
 	objListGame.push(objList[r]);
 	// ! r can be repeated -> to be fixed after
     }

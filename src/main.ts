@@ -39,5 +39,4 @@ function main() {
     E.display_board(board);
     return (final_score >= objectiveScore);
 }
-
 main();

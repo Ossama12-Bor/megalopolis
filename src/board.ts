@@ -48,7 +48,7 @@ function who_is_in_coord(board:Board,coord:T.Coord2D):number{
 }
 function blockInPosition(board:Board,coord:T.Coord2D):T.Block{
 	let coordinate:number=who_is_in_coord(board,coord);
-	return board.deck.deck[coordinate/NUM_NEIGHBORS].blockList[coordinate%NUM_NEIGHBORS];
+    return board.deck.deck[Math.floor(coordinate/NUM_NEIGHBORS)].blockList[coordinate%NUM_NEIGHBORS];
 }
 /*function connected_by_road(block1:T.Block,BLOCK2:T.Block):Boolean{
 	return true;
@@ -170,7 +170,8 @@ function constructRoadGraph(board : Board) : G.graph<number>{
     });
     */
     Object.entries(b).forEach(([_,id]) => {
-	g = G.add_node(g,id);
+	if(blockInPosition(board,StringToCoord(_)).road !== T.Road.NO_ROAD)
+	   g = G.add_node(g,id);
     });
     
     Object.entries(b).forEach(([coord,id])=> {

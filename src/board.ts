@@ -182,7 +182,7 @@ function constructRoadGraph(board : Board) : G.graph<number>{
 	    //console.log(cStr);
 	    if(b[coord_neighbor] !== undefined){
 		if(is_road_connected(board, coord, coord_neighbor))
-		    g = G.add_edge(g,b[coord],id);
+		    g = G.add_edge(g,b[coord],b[coord_neighbor]);
 		//console.log(b[cStr]);
 	    }
 	});

@@ -32,7 +32,7 @@ function main() {
     O.displayObjectives(objectives,"-------------\nIn-game objectives\n-------------\n","-------------\n");
     let objectiveScore : number = O.ObjTotalScore(objectives);
      board.deck = D.generate_deck(board.deck ,15);
-    for (let i = 0; i < 15; ++i){
+    for (let i = 0; i < 1; ++i){
 	B.add_tile(board, i, B.StringToCoord(Object.keys(board.empty)[Math.floor((Math.random()*1000))%Object.keys(board.empty).length]));
     }
     let final_score : number = objectives.reduce((acc, objective) => {

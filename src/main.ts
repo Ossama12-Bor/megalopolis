@@ -32,14 +32,15 @@ function main() {
     O.displayObjectives(objectives,"-------------\nIn-game objectives\n-------------\n","-------------\n");
     let objectiveScore : number = O.ObjTotalScore(objectives);
      board.deck = D.generate_deck(board.deck ,15);
-    for (let i = 0; i < 1; ++i){
+    for (let i = 0; i < 5; ++i){
 	B.add_tile(board, i, B.StringToCoord(Object.keys(board.empty)[Math.floor((Math.random()*1000))%Object.keys(board.empty).length]));
     }
+    E.display_board(board);
     let final_score : number = objectives.reduce((acc, objective) => {
 	return acc + O.boardObjScore(board, objective);
     },0);
 //    console.log(B.is_road_connected(board,'1,0','1,-1') )   ;
-    E.display_board(board);
+    
 	console.log("player got ",final_score,"points");
 	if(final_score >= objectiveScore){
 		console.log("player won the game ! ");
@@ -47,4 +48,5 @@ function main() {
 	else
 		console.log("player lost the game !");
 }
+
 main();

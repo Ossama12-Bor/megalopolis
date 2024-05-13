@@ -174,7 +174,7 @@ function constructRoadGraph(board : Board) : G.graph<number>{
 	   g = G.add_node(g,id);
     });
     
-    Object.entries(b).forEach(([coord,id])=> {
+    Object.entries(b).forEach(([coord,id]) => {
 	const x = StringToCoord(coord).x;
 	const y = StringToCoord(coord).y;
 	const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
@@ -187,6 +187,37 @@ function constructRoadGraph(board : Board) : G.graph<number>{
 		//console.log(b[cStr]);
 	    }
 	});
+    });
+    
+    return g;
+}
+
+function constructColorGraph(board : Board, Color : T.BlockColor) : G.graph<number>{
+    const b : {[key:string]:number} = getBoard(board);
+    let g : G.graph<number> = G.cons_empty_graph();
+    let c : T.Coord2D;
+    
+    Object.entries(b).forEach(([coord,id]) => {
+	if( (T.getBlockColor(blockInPosition(board, StringToCoord(coord))) == Color))
+	{
+	    g = G.add_node(g, id);
+	    const x = StringToCoord(coord).x;
+	    const y = StringToCoord(coord).y;
+	    const neighbors = [[x+1,y], [x,y+1]];
+	    neighbors.forEach((n) => {
+		const coord_neighbor : string =  coordToString(T.to2Dcoord(n[0],n[1]));
+		//console.log(cStr);
+		if(b[coord_neighbor] !== undefined){
+		    if(T.getBlockColor(blockInPosition(board, StringToCoord(coord_neighbor))) === Color){
+			g = G.add_node(g, b[coord_neighbor]);
+			//console.log(coord_neighbor);
+			g = G.add_edge(g,b[coord],b[coord_neighbor]);
+			
+		    //console.log(b[cStr]);
+		    }
+		}
+	    });
+	}
     });
     
     return g;
@@ -206,13 +237,15 @@ export {
 	initializeBoard,
 	add_tile,
 	Board,
-	coordToString,
+    coordToString,
+    getBoard,
 	StringToCoord,
 	who_is_in_coord,
 	print_board,
 	add_positions_to_empty,
     blockInPosition,
     constructRoadGraph,
+    constructColorGraph,
 	board_copy
 };
 

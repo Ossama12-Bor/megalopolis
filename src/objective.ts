@@ -1,6 +1,7 @@
 /* Objective module */
 import * as B from "./board.js"
 import * as G from "./graph.js"
+import * as T from "./tile.js"
 
 type Objective = {
     score : number,
@@ -55,12 +56,16 @@ function initializeObjectives() : Objective[]
 {
     const nObj : number = objList.length;
     let objListGame : Objective[] = [];
-    // let chosen = {};
+    let chosen = new Set();
     let r : number;
-    const n_choice : number = 1;
+    const n_choice : number = 10;
     for(let i = 0;i < n_choice;i++){
+	
 	r = (Math.floor(Math.random() * 1000)) % nObj;
-	objListGame.push(objList[r]);
+	if(!chosen.has(r)){
+	    chosen.add(r);
+	    objListGame.push(objList[r]);
+	}
 	// ! r can be repeated -> to be fixed after
     }
     return objListGame;
@@ -85,26 +90,61 @@ const ReduceCirculation_scoreFunction : (board : B.Board) => number = (board) =>
 
 const ReduceCirculation_obj : Objective = CreateObj(0, ReduceCirculation_scoreFunction, "Reduce circulation");
 
-//Representation of "arrondissements" objective
+/* green !*/
 //Score Function
-// const Groupings_scoreFunction : (board : B.Board) => number = (board) =>
-//     {
-// 	const
-//     }
-
-// just a simple function
-const aDummy_scoreFunction : (board : B.Board) => number = (board) =>
+const GreenLife_scoreFunction : (board : B.Board) => number = (board) =>
     {
-	return 15;
+	let score : number = 0;
+	const b : {[key:string]:number} = B.getBoard(board);
+	Object.entries(b).forEach(([coordStr, id]) => {
+	    const coord : T.Coord2D = B.StringToCoord(coordStr);
+	    if(T.getBlockColor(B.blockInPosition(board, coord)) == T.BlockColor.GREEN)
+		score += 1;
+	    else if(T.getBlockColor(B.blockInPosition(board, coord)) == T.BlockColor.GRAY)
+		score -= 3;
+	});
+	return score;
     };
 
-const aDummy_obj : Objective = CreateObj(13, aDummy_scoreFunction, "a dummy obj");
+const GreenLife_obj : Objective = CreateObj(3, GreenLife_scoreFunction, "Green Life");
 
 
+/* Max groupings */
+const MaxGrp_scoreFunction : (board : B.Board) => number = (board) =>
+    {
+	let score = 0;
+	let CCsGREEN : number[][] = G.getConnectedComponents<number>(B.constructColorGraph(board, T.BlockColor.GREEN));
+	
+	let scoreGREEN = CCsGREEN.map((comp : number[]) => comp.length).reduce((acc, curr) => Math.max(acc, curr), 0);
+	console.log("green score = ", scoreGREEN);
+	let CCsGRAY : number[][] = G.getConnectedComponents<number>(B.constructColorGraph(board, T.BlockColor.GRAY));
+	
+	let scoreGRAY = CCsGRAY.map((comp : number[]) => comp.length).reduce((acc, curr) => Math.max(acc, curr), 0);
+	console.log("gray score = ", scoreGRAY);
+	
+	let CCsBLUE : number[][] = G.getConnectedComponents<number>(B.constructColorGraph(board, T.BlockColor.BLUE));
+	
+	let scoreBLUE = CCsBLUE.map((comp : number[]) => comp.length).reduce((acc, curr) => Math.max(acc, curr), 0);
+	console.log("blue score = ", scoreBLUE);
+	
+	let CCsORANGE : number[][] = G.getConnectedComponents<number>(B.constructColorGraph(board, T.BlockColor.ORANGE));
+	
+	let scoreORANGE = CCsORANGE.map((comp : number[]) => comp.length).reduce((acc, curr) => Math.max(acc, curr), 0);
+	console.log("orange score = ", scoreORANGE);
+	
+	score = scoreGREEN + scoreORANGE + scoreBLUE + scoreGRAY;
+	return score;
+    };
+
+const MaxGrp_obj : Objective = CreateObj(0, MaxGrp_scoreFunction, "max grouping");
 /* Constructing our list of objectives */
 
 //objList.push(aDummy_obj);
 objList.push(ReduceCirculation_obj);
+objList.push(GreenLife_obj);
+objList.push(MaxGrp_obj);
+
+
 
 
 

@@ -137,12 +137,44 @@ const MaxGrp_scoreFunction : (board : B.Board) => number = (board) =>
     };
 
 const MaxGrp_obj : Objective = CreateObj(0, MaxGrp_scoreFunction, "max grouping");
+
+/* Push and STACK */
+
+
+const PushStack_scoreFunction : (board : B.Board) => number = (board) =>
+    {
+	let score : number = 0;
+	const b : {[key:string]:number} = B.getBoard(board);
+	Object.entries(b).forEach(([coord, id]) => {
+	    if(T.getBlockColor(B.blockInPosition(board, B.StringToCoord(coord))) == T.BlockColor.GRAY){
+		let verifier = 1;
+		const x = B.StringToCoord(coord).x;
+		const y = B.StringToCoord(coord).y;
+		const neighbors = [[x+1,y], [x-1,y], [x,y+1], [x,y-1]];
+		neighbors.forEach((n)=>{
+		    const coord_neighbour : string =  B.coordToString(T.to2Dcoord(n[0],n[1]));
+		if(b[coord_neighbour] !== undefined){		    
+		    if(T.getBlockColor(B.blockInPosition(board, B.StringToCoord(coord_neighbour))) != T.BlockColor.GRAY && T.getBlockColor(B.blockInPosition(board, B.StringToCoord(coord_neighbour))) != T.BlockColor.BLUE){
+			verifier = 0;
+		    }
+		}
+		});
+		if (verifier ==1) score += 2;
+	    };
+	});
+	console.log("PushStack score = ", score);	
+	return score;
+    }
+
+const PushStack_obj : Objective = CreateObj(0, PushStack_scoreFunction, "PushStack");
+
 /* Constructing our list of objectives */
 
 //objList.push(aDummy_obj);
 objList.push(ReduceCirculation_obj);
 objList.push(GreenLife_obj);
 objList.push(MaxGrp_obj);
+objList.push(PushStack_obj);
 
 
 
